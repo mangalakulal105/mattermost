@@ -12,6 +12,7 @@ export type Props = {
     className?: string;
     onExited: () => void;
     modalHeaderText?: React.ReactNode;
+    modalSubheadingText?: React.ReactNode;
     show?: boolean;
     handleCancel?: () => void;
     handleConfirm?: () => void;
@@ -197,13 +198,28 @@ export class GenericModal extends React.PureComponent<Props, State> {
                     className='GenericModal__wrapper-enter-key-press-catcher'
                 >
                     <Modal.Header closeButton={true}>
-                        {this.props.compassDesign && (
-                            <>
-                                {headerText}
-                                {this.props.headerInput}
-                            </>
-                        )}
+                        <div className='GenericModal__header__text_container'>
+                            {this.props.compassDesign && (
+                                <>
+                                    {headerText}
+                                    {this.props.headerInput}
+                                </>
+                            )}
+
+                            {
+                                this.props.modalSubheadingText &&
+                                <div className='modal-subheading-container'>
+                                    <h6
+                                        id='genericModalSubheading'
+                                        className='modal-subheading'
+                                    >
+                                        {this.props.modalSubheadingText}
+                                    </h6>
+                                </div>
+                            }
+                        </div>
                     </Modal.Header>
+
                     <Modal.Body className={classNames({divider: this.props.bodyDivider})}>
                         {this.props.compassDesign ? (
                             this.props.errorText && (

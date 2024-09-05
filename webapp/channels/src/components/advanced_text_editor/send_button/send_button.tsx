@@ -19,17 +19,17 @@ import {ShortcutKeys} from 'components/with_tooltip/shortcut';
 import './style.scss';
 
 type SendButtonProps = {
-    handleSubmit: (e: React.FormEvent, schedulingInfo?: SchedulingInfo) => void;
+    handleSubmit: (schedulingInfo?: SchedulingInfo) => void;
     disabled: boolean;
 }
 
 const SendButton = ({disabled, handleSubmit}: SendButtonProps) => {
     const {formatMessage} = useIntl();
 
-    const sendMessage = useCallback((e: React.FormEvent, schedulingInfo?: SchedulingInfo) => {
-        e.stopPropagation();
-        e.preventDefault();
-        handleSubmit(e, schedulingInfo);
+    const sendMessage = useCallback((e?: React.FormEvent, schedulingInfo?: SchedulingInfo) => {
+        e?.stopPropagation();
+        e?.preventDefault();
+        handleSubmit(schedulingInfo);
     }, [handleSubmit]);
 
     const sendOnCtrlEnter = useSelector(isSendOnCtrlEnter);
@@ -87,7 +87,7 @@ const SendButton = ({disabled, handleSubmit}: SendButtonProps) => {
 
             <SendPostOptions
                 disabled={disabled}
-                onSelect={sendMessage}
+                onSelect={handleSubmit}
             />
         </div>
     );
